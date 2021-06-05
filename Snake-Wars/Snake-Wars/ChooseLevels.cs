@@ -10,12 +10,11 @@ using System.Windows.Forms;
 
 namespace Snake_Wars
 {
-    public partial class Register : Form
+    public partial class ChooseLevels : Form
     {
-        public Register()
+        public ChooseLevels()
         {
             InitializeComponent();
         }
-
     }
 }

@@ -32,14 +32,5 @@ namespace Snake_Wars
 
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ShowUp.Checked)
-                //复选框被勾选，明文显示
-                passwordBox.PasswordChar = new char();
-            else
-                //复选框被取消勾选，密文显示
-                passwordBox.PasswordChar = '*';
-        }
     }
 }
