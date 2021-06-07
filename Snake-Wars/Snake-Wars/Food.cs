@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake_Wars
 {
-    class Food:Circle
+    class Food : Circle
     {
 
     }

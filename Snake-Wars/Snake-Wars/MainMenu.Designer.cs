@@ -41,18 +41,21 @@ namespace Snake_Wars
             // 
             // Title
             // 
+            this.Title.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Title.AutoSize = true;
-            this.Title.Font = new System.Drawing.Font("造字工房锦华(非商用）常规体", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Title.Font = new System.Drawing.Font("方正粗黑宋简体", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Title.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.Title.Location = new System.Drawing.Point(169, 95);
+            this.Title.Location = new System.Drawing.Point(119, 90);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(422, 89);
+            this.Title.Size = new System.Drawing.Size(522, 97);
             this.Title.TabIndex = 0;
             this.Title.Text = "贪吃蛇大作战";
+            this.Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Title.Click += new System.EventHandler(this.label1_Click);
             // 
             // Rules
             // 
+            this.Rules.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Rules.AutoSize = true;
             this.Rules.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Rules.Location = new System.Drawing.Point(637, 505);
@@ -65,6 +68,7 @@ namespace Snake_Wars
             // 
             // RankingList
             // 
+            this.RankingList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.RankingList.AutoSize = true;
             this.RankingList.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.RankingList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -78,6 +82,7 @@ namespace Snake_Wars
             // 
             // Enter
             // 
+            this.Enter.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Enter.AutoSize = true;
             this.Enter.Font = new System.Drawing.Font("宋体", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Enter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -91,6 +96,7 @@ namespace Snake_Wars
             // 
             // Settings
             // 
+            this.Settings.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Settings.AutoSize = true;
             this.Settings.Font = new System.Drawing.Font("宋体", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -104,6 +110,7 @@ namespace Snake_Wars
             // 
             // Exit
             // 
+            this.Exit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Exit.AutoSize = true;
             this.Exit.Font = new System.Drawing.Font("宋体", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Exit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -128,6 +135,7 @@ namespace Snake_Wars
             this.Controls.Add(this.Title);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "贪吃蛇大作战";
             this.ResumeLayout(false);
             this.PerformLayout();
