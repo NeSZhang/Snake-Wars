@@ -32,11 +32,6 @@ namespace Snake_Wars
 
         }
 
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -63,7 +58,7 @@ namespace Snake_Wars
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            int Value = (int)textBox1.Text.ToUpper()[0];
+            int Value = (int)textBox1.Text.ToUpper()[20];
             if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
             else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
             else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
@@ -74,7 +69,7 @@ namespace Snake_Wars
         private void passwordBox_TextChanged(object sender, EventArgs e)
         {
             passwordBox.PasswordChar = '*';
-            int Value = (int)textBox1.Text.ToUpper()[0];
+            int Value = (int)textBox1.Text.ToUpper()[20];
             if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
             else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
             else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
