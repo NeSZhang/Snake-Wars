@@ -1,277 +1,244 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Snake_Wars
 {
     class Game
     {
         #region 字段
-        Snake snake;                //蛇
-        Food food;                  //食物
-        Maps map;                   //地图
+        int XRows;                  //行数 
+        int YRows;                  //列数
+        int bWidth;                 //格子宽度
+        int bHeight;                //格子高度
 
-        bool[,] map_Bool;           //蛇的身体的位置
-        Circle[,] circles;          //以二维数组表示地图中的格子数，是绘制的依据
-        int score = 0;              //获得的分数
-        int xRows;                  //游戏区域的列数 
-        int yRows;                  //游戏区域的行数
-        int bWidth;                 //格子的宽度
-        int bHeight;                //格子的高度
+        Circle[,] data;             //存储格子
+        Food food = new Food();     //食物
+        Map map = new Map();        //地图
+        Snake snake = new Snake();  //蛇
         Panel pa;                   //游戏界面
-        
-
-        Color fcolor;               //前景色
-        Color bcolor;               //背景色
         Timer timer;                //定时器
+        Directions dir;             //移动方向
 
-       
-        Random random;              //随机生成食物
-        
-        Circle circle;              //基本方块
-        Direction dir;              //移动方向
-        int speed;                  //速度
+        bool isHaveFood;            //判断是否有食物
+        public int Score = 0;       //累计分数
+        public bool isStoped = false;
+        public bool isFinished = false;
         #endregion
 
         #region 初始化
-        public Game(Panel pa)               //初始化游戏界面
+        public Game(Panel pa)
         {
             this.pa = pa;
         }
 
-        public void InitGame(int speed)     //初始化数据
+        public void InitData(int speed)
         {
-            fcolor = Color.Red;                     //前景色置为红色
-            bcolor = Color.White;                   //背景色置为白色
-            dir = Direction.Right;                  //初始方向
-            speed = 1000;                           //初始速度为1秒刷新一次
+            bWidth = 15;                        //方块的宽度
+            bHeight = 15;                       //方块的高度
+            XRows = pa.Height / bHeight;        //地图的行数
+            YRows = pa.Width / bWidth;          //地图的列数
+            data = new Circle[XRows, YRows];    //方块的位置
 
-            bWidth = bHeight = 15;                  //所占方格大小
-            xRows = this.pa.Width / bWidth;         //地图列数
-            yRows = this.pa.Height / bHeight;       //地图行数
+            map.Color = Color.White;            //地图背景颜色
+            snake.Color = Color.Red;            //蛇的颜色
+            food.Color = Color.Black;           //食物的颜色
+            snake.Body1 = new List<Snake>();    //实例化蛇的身体
 
-            map_Bool = new bool[xRows, yRows];
-            circles = new Circle[xRows, yRows];     //初始化数组
+            timer = new Timer();                //实例化timer 
+            timer.Interval = speed;             //蛇的速度（间隔speed毫秒执行一次）
+            timer.Enabled = true;               //计时器是否正在运行
+            timer.Tick += new EventHandler(timer1_Tick);
 
-            timer.Enabled = true;
-            timer.Interval = speed;                 //初始化定时器
-
-            map = new Maps(circle, bcolor);         //初始化背景
-            map.DrawMap(xRows, yRows, circles, bWidth, bHeight, pa); //背景设置
-
-            InitSnake();
-            InitFood();
+            dir = Directions.Right;             //默认方向为右边
+            isHaveFood = false;                 //默认没有食物
         }
 
-        public void InitFood()              //随机生成食物
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            random = new Random(unchecked((int)DateTime.Now.Ticks));
-            Circle t = circle;
-            int x = random.Next(bWidth);
-            int y = random.Next(bHeight);
-            while (true)
+            Move();
+            if (!isHaveFood)
             {
-                if (map_Bool[x, y])
-                {
-                    x = random.Next(bWidth);
-                    y = random.Next(bHeight);
-                }
-                else
-                    break;
+                food.DrawFood(data, XRows, YRows);
+                isHaveFood = true;
             }
-            t.Position = new Point(x, y);
-            food = new Food(t, fcolor);
-            circles[x, y] = new Circle(x, y, fcolor);
         }
-
         #endregion
 
-        #region 游戏功能
-        void Move()     //移动
+        #region 支持函数
+        void Move()
         {
             switch (dir)
             {
-                case Direction.Up:
-                    if (snake.Head.X > 0)               //蛇头不在最上边
+                case Directions.Up:
+                    if (snake.Head1.X > 0)              //不在最上面
                     {
-                        Circle front = circles[snake.Head.X, snake.Head.Y - 1];
-                        if (GetFood(front))             //判断是否是食物
+                        Circle front = data[snake.Head1.X - 1, snake.Head1.Y];
+                        if (checkFood(front))           //是否是食物
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//添加蛇身
-                            InitFood();                 //更新食物
-                            score += 20;
+                            snake.AddSnake(new Snake(front, snake.Color), data);   //添加蛇身
+                            Score += 20;
+                            isHaveFood = false;
                         }
-                        else if (CheckSnake(front))     //判断是否撞到自己
+                        else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover();
-                            MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                            Gameover(); isFinished = true;
                         }
                         else
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//增加蛇头                         
-                            RemoveTail(snake);          //移去尾巴
+                            snake.AddSnake(new Snake(front, snake.Color), data);   //添加蛇身                         
+                            snake.RemoveTail(data, map.Color); //移去尾巴
                         }
                     }
-                    else    //到达最上边，撞墙死
+                    else    //撞墙死
                     {
-                        Gameover();
-                        MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                        Gameover(); isFinished = true;
                     }
                     break;
-                case Direction.Down:
-                    if (snake.Head.X < xRows - 1)       //不在最下边
+                case Directions.Down:
+                    if (snake.Head1.X < XRows - 1)
                     {
-                        Circle front = circles[snake.Head.X, snake.Head.Y + 1];
-                        if (GetFood(front))             //判断是否是食物
+                        Circle front = data[snake.Head1.X + 1, snake.Head1.Y];
+                        if (checkFood(front))           //是否是食物
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//添加蛇身
-                            InitFood();                 //更新食物
-                            score += 20;
+                            snake.AddSnake(new Snake(front, snake.Color), data);
+                            Score += 20;
+                            isHaveFood = false;
                         }
-                        else if (CheckSnake(front))     //是否撞到自己的
+                        else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover();
-                            MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                            Gameover(); isFinished = true;
                         }
                         else
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//增加蛇头                           
-                            RemoveTail(snake);         //移去尾巴
+                            snake.AddSnake(new Snake(front, snake.Color), data); //增加蛇头                           
+                            snake.RemoveTail(data, map.Color);     //移去尾巴
                         }
                     }
                     else
                     {
-                        Gameover();
-                        MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                        Gameover(); isFinished = true;
                     }
                     break;
-                case Direction.Left:
-                    if (snake.Head.Y > 0)               //不在最左边
+                case Directions.Left:
+                    if (snake.Head1.Y > 0)
                     {
-                        Circle front = circles[snake.Head.X - 1, snake.Head.Y];
-                        if (GetFood(front))             //判断是否是食物
+                        Circle front = data[snake.Head1.X, snake.Head1.Y - 1];
+                        if (checkFood(front))           //是否是食物
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//添加蛇身
-                            InitFood();                 //更新食物
-                            score += 20;
+                            snake.AddSnake(new Snake(front, snake.Color), data);
+                            Score += 20;
+                            isHaveFood = false;
                         }
-                        else if (CheckSnake(front))     //判断是否撞到自己
+                        else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover();
-                            MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                            Gameover(); isFinished = true;
                         }
                         else
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor)); //增加蛇头                            
-                            RemoveTail(snake);         //移去尾巴
+                            snake.AddSnake(new Snake(front, snake.Color), data);//增加蛇头                           
+                            snake.RemoveTail(data, map.Color);//移去尾巴
                         }
                     }
-                    else    //到达最左边、撞墙死
+                    else    //撞墙死
                     {
-                        Gameover();
-                        MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                        Gameover(); isFinished = true;
                     }
                     break;
-                case Direction.Right:
-                    if (snake.Head.Y < yRows - 1)       //不在最右边 
+                case Directions.Right:
+                    if (snake.Head1.Y < YRows - 1)
                     {
-                        Circle front = circles[snake.Head.X + 1, snake.Head.Y];
-                        if (GetFood(front))             //判断是否是食物
+                        Circle front = data[snake.Head1.X, snake.Head1.Y + 1];
+                        if (checkFood(front))       //判断是否是食物
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor));//添加蛇身
-                            InitFood();                 //更新食物
-                            score += 20;
+                            snake.AddSnake(new Snake(front, snake.Color), data);
+                            Score += 20;
+                            isHaveFood = false;
                         }
-                        else if (CheckSnake(front))     //判断是否撞到自己
+                        else if (checkBody(front))  //是否撞到自己
                         {
-                            Gameover();
-                            MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                            Gameover(); isFinished = true;
                         }
                         else
                         {
-                            AddSnake(new Circle(food.XRow, food.YRow, fcolor)); //增加蛇头                       
-                            RemoveTail(snake);         //移去尾巴
+                            snake.AddSnake(new Snake(front, snake.Color), data);//增加蛇头 
+                            snake.RemoveTail(data, map.Color);//移去尾巴
                         }
                     }
-                    else    //到达最右边，撞墙死
+                    else        //撞墙死
                     {
-                        Gameover();
-                        MessageBox.Show("非常遗憾，闯关失败(请重新开始)");
+                        Gameover(); isFinished = true;
                     }
                     break;
             }
         }
-
-        public void Start(int speed)
+        public void ChangeDirections(Keys keys)//改变蛇的方向，不能向当前运动方向的反方向运动
         {
-            InitGame(speed); //初始化数据
-            
-            
+            if (keys == Keys.Up)
+            {
+                if (!(dir == Directions.Down))
+                    dir = Directions.Up;
+            }
+            else if (keys == Keys.Down)
+            {
+                if (!(dir == Directions.Up))
+                    dir = Directions.Down;
+            }
+            else if (keys == Keys.Left)
+            {
+                if (!(dir == Directions.Right))
+                    dir = Directions.Left;
+            }
+            else if (keys == Keys.Right)
+            {
+                if (!(dir == Directions.Left))
+                    dir = Directions.Right;
+            }
         }
-        public void Stop()
+        bool checkFood(Circle obj)//判断是否是食物
+        {
+            if (obj is Food)
+                return true;
+            else
+                return false;
+        }
+        bool checkBody(Circle obj)//判断是否是蛇
+        {
+            if (obj is Snake)
+                return true;
+            else
+                return false;
+        }
+        #endregion
+
+        #region 游戏功能
+        public void Start(int speed)  //开始
+        {
+            InitData(speed);//初始化          
+            map.DrawMap(XRows, YRows, data, bWidth, bHeight, pa);//设置背景
+            snake.DrawSnake(data);
+        }
+        public void Stop()  //暂停
         {
             timer.Stop();
+            isStoped = true;
         }
-        public void Continue()
+        public void Continue()  //继续
         {
             timer.Start();
+            isStoped = false;
         }
-
-        public void Gameover()              //游戏结束
-        {
-            this.pa.Controls.Clear();
-            //this.pa.BackgroundImage = Image.FromFile(@" D:\c#\贪吃蛇\LOGINBG.png");
-            this.pa.BackgroundImageLayout = ImageLayout.Stretch;
-            this.timer.Enabled = false;
-        }
-        #endregion
-
-
-        #region 对蛇操作
-        public void InitSnake()             //初始化蛇
-        {
-            snake = new Snake(4, circle, dir, speed);
-            Circle t = circle;              //临时变量
-            for (int i = 3; i < 7; i--)
-            {
-                circles[i, 3] = new Circle(i, 3, fcolor); //初始化数组中的蛇
-                map_Bool[i, 3] = true;
-            }
-        }
-
-        public void AddSnake(Circle obj)    //添加蛇身
-        {
-            map_Bool[obj.XRow, obj.YRow] = true;
-            snake.AddSnake(obj, circles);
-        }
-
-        public void RemoveTail(Snake obj)   //移去尾巴
-        {          
-            map_Bool[snake.Body[0].XRow, snake.Body[0].YRow] = false;//从蛇的身体移除
-            snake.RemoveTail(obj,circles);
-        }
-
-        public bool CheckSnake(Circle obj)  //判断是否撞到自己
-        {
-            if (map_Bool[obj.XRow, obj.YRow])
-                return true;
-            else
-                return false;
-        }
-
-        public bool GetFood(Circle obj)     //判断前面的是否是食物
-        {
-            if (obj.Position == food.Position)
-                return true;
-            else
-                return false;
+        public void Gameover()  //游戏结束
+        {     
+            pa.Controls.Clear();
+            
+            timer.Enabled = false;
+            MessageBox.Show("非常遗憾，闯关失败(请重新开始)！");
         }
         #endregion
-
-
     }
 }

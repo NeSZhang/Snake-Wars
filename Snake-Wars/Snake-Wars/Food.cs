@@ -1,23 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Snake_Wars
 {
     class Food : Circle
     {
-        public Food(Circle obj, Color food)
+        #region 初始化
+        public Food()
         {
-            this.XRow = obj.XRow;//横向列
-            this.YRow = obj.YRow;//纵向行
-            this.Label = obj.Label;//标签
-            this.Color = obj.Color;//颜色
-            this.Position = obj.Position;//位置
+
         }
 
+        public Food(Circle obj, Color food)
+        {
+            this.XRow = obj.XRow;
+            this.YRow = obj.YRow;
+            this.Control = obj.Control;
+            this.Color = food;
+            this.Control.BackColor = food;
+        }
+        #endregion
+
+        #region 画食物
+        public void DrawFood(Circle[,] data, int xRows, int yRows)
+        {
+            Random rand;             //进行随机生成的类
+            rand = new Random();           //随机生成的类进行实例化
+            int x, y;
+            do
+            {
+                x = rand.Next(xRows - 1);
+                y = rand.Next(yRows - 1);
+            }
+            while ((data[x, y] is Snake));
+            data[x, y] = new Food(data[x, y], Color);
+        }
+        #endregion
     }
 }

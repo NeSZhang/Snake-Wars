@@ -1,76 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Snake_Wars
 {
-    class Snake
+    class Snake : Circle
     {
         #region 字段
-        List<Circle> body;              //蛇的身体
-        private Point head;             //蛇头位置
-        private int speed;              //速度
-        private Direction direction;    //方向
-        private bool alive;             //是否活着
+        Point Head;        //头
+        List<Snake> Body;  //身
         #endregion
 
         #region 属性
-        public int Speed { get => speed; set => speed = value % 5; }
-        public Point Head { get => head; set => head = value; }
-        public Direction Direction { get => direction; set => direction = value; }
-        public bool Alive { get => alive; set => alive = value; }
-        internal List<Circle> Body { get => body; set => body = value; }
+        public Point Head1 { get => Head; set => Head = value; }
+        internal List<Snake> Body1 { get => Body; set => Body = value; }
+        #endregion
+
+        #region 初始化
+        public Snake()
+        {
+        }
+
+        public Snake(Circle obj, Color snake)
+        {
+            XRow = obj.XRow;
+            YRow = obj.YRow;
+            Control = obj.Control;
+            Color = snake;
+            Control.BackColor = snake;
+        }
         #endregion
 
         #region 方法
-        public Snake(int nums, Circle obj, Direction dir, int speed)    //初始化
+        public void DrawSnake(Circle[,] data)
         {
-            alive = true;           //一开始活着
-            this.speed = speed;     //初始化速度
-            direction = dir;        //初始化方向
-            head.X = obj.XRow;      //初始化蛇头的位置
-            head.Y = obj.YRow;
-            Body = new List<Circle>(nums);
-            Circle t = obj;
-            for (int i = nums; i > 0; i--)
+            for (int i = 5; i < 9; i++)  //列
             {
-                switch(direction)
-                {
-                    case Direction.Up:
-                        t.YRow += 15;
-                        break;
-                    case Direction.Down:
-                        t.YRow -= 15;
-                        break;
-                    case Direction.Left:
-                        t.XRow += 15;
-                        break;
-                    case Direction.Right:
-                        t.XRow -= 15;
-                        break;
-                }
-                Body.Add(t);
+                data[1, i] = new Snake(data[1, i], Color);
+                AddSnake(data[1, i] as Snake, data);
             }
         }
 
-        public void AddSnake(Circle obj, Circle[,] circles)    //添加蛇身
+        public void AddSnake(Snake obj, Circle[,] data)
         {
-            Head = new Point(obj.XRow, obj.YRow);
-            circles[obj.XRow, obj.YRow] = obj;
-            Body.Add(obj);
+            data[obj.XRow, obj.YRow] = obj;
+            Head1 = new Point(obj.XRow, obj.YRow);
+            Body1.Add(obj);
         }
 
-        public void RemoveTail(Snake obj, Circle[,] circles)   //移去尾巴
+        public void RemoveTail(Circle[,] data, Color bg) //移去尾巴
         {
-            circles[Body[0].XRow, Body[0].YRow] = new Circle(Body[0].XRow, Body[0].YRow, Body[0].Color);
+            //末尾的方块改为Map方块
+            data[Body[0].XRow, Body[0].YRow] = new Map(data[Body[0].XRow, Body[0].YRow], bg);
             Body.RemoveAt(0);
         }
-
         #endregion
-
     }
 }
