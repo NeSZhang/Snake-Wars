@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,79 +13,159 @@ namespace Snake_Wars
 {
     public partial class Login : Form
     {
+        bool LorR;
+
         public Login()
         {
+            LorR = true;
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Register_Click(object sender, EventArgs e)
         {
-
+            ChangeMode();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        #region 密码明文切换
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
-            {
-                //复选框被勾选，明文显示
-                passwordBox.PasswordChar = new char();
-            }
-            else
-            {
-                //复选框被取消勾选，密文显示
-                passwordBox.PasswordChar = '*';
-            }
+                passwordBox.PasswordChar = new char();  //复选框被勾选，明文显示
+            else    
+                passwordBox.PasswordChar = '*';         //复选框被取消勾选，密文显示
         }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                passwordBox2.PasswordChar = new char();  //复选框被勾选，明文显示
+            else
+                passwordBox2.PasswordChar = '*';         //复选框被取消勾选，密文显示
+        }
+        #endregion
 
+        #region 判断字符是否合法
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            int Value = (int)textBox1.Text.ToUpper()[20];
-            if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
-            else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
-            else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
-            else if (Value == (int)'.' || Value == '-' || Value == '@' || Value == '?' || Value == '`' || Value == '_') this.Text = "特殊字符";
-            else this.Text = "非法字符";
+            passwordBox.PasswordChar = '*';
+            Regex regNum = new Regex("^[0-9]*$");        //验证是否是数字
+            Regex regLetter = new Regex("[a-zA-Z]");    //验证是否是字母
+            Regex regExp = new Regex("[.-@?`_]");       //验证是否是合法字符
+            if (regExp.IsMatch(Text.Trim()) || regNum.IsMatch(Text.Trim())
+                || regLetter.IsMatch(Text.Trim()))
+            {
+                MessageBox.Show("非法字符，请重新输入！");
+                Text = Text.Substring(0, Text.Length - 1);
+            }
         }
-
         private void passwordBox_TextChanged(object sender, EventArgs e)
         {
             passwordBox.PasswordChar = '*';
-            int Value = (int)textBox1.Text.ToUpper()[20];
-            if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
-            else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
-            else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
-            else if (Value == (int)'.' || Value == '-' || Value == '@' || Value == '?' || Value == '`' || Value == '_') this.Text = "特殊字符";
-            else this.Text = "非法字符";
+            Regex regNum= new Regex("^[0-9]*$");        //验证是否是数字
+            Regex regLetter = new Regex("[a-zA-Z]");    //验证是否是字母
+            Regex regExp = new Regex("[.-@?`_]");       //验证是否是合法字符
+            if (regExp.IsMatch(Text.Trim()) || regNum.IsMatch(Text.Trim())
+                || regLetter.IsMatch(Text.Trim()))
+            {
+                MessageBox.Show("非法字符，请重新输入！");
+                Text = Text.Substring(0, Text.Length - 1);
+            }
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void passwordBox2_TextChanged(object sender, EventArgs e)
         {
-
+            passwordBox.PasswordChar = '*';
+            Regex regNum = new Regex("^[0-9]*$");        //验证是否是数字
+            Regex regLetter = new Regex("[a-zA-Z]");    //验证是否是字母
+            Regex regExp = new Regex("[.-@?`_]");       //验证是否是合法字符
+            if (regExp.IsMatch(Text.Trim()) || regNum.IsMatch(Text.Trim())
+                || regLetter.IsMatch(Text.Trim()))
+            {
+                MessageBox.Show("非法字符，请重新输入！");
+                Text = Text.Substring(0, Text.Length - 1);
+            }
         }
+        #endregion
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (LorR)   //登录
+            {
+                //连接数据库对比账号密码是否正确
+
+            }
+            else        //注册
+            {
+                //注册账号写入数据库
+
+                //比较两次输入的密码是否一致
+
+            }
         }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            if (LorR)   //登录
+            {
+                this.Close();
+                                //返回主页面
+
+
+            }
+            else        //注册
+            {
+                ChangeMode();   //回到登录界面
+            }
+        }
+        private void ChangeMode()       //登录or注册
+        {
+            if (LorR)   //登录时点击
+            {
+                this.Text = "注册账号";
+                Register.Visible = false;
+                ConfirmPwd.Visible = true;
+                passwordBox2.Visible = true;
+                checkBox2.Visible = true;
+                button1.Text = "注册";
+                LorR = false;
+            }
+            else        //注册时点击
+            {
+                this.Text = "登录";
+                Register.Visible = true;
+                ConfirmPwd.Visible = false;
+                passwordBox2.Visible = false;
+                checkBox2.Visible = false;
+                button1.Text = "登录";
+                LorR = true;
+            }
+        }
+
+        #region 回车事件
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control || e.KeyCode == Keys.Enter)
+            {
+                button1_Click(sender, e);
+            }
+        }
+
+        private void passwordBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control || e.KeyCode == Keys.Enter)
+            {
+                button1_Click(sender, e);
+            }
+        }
+
+        private void passwordBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control || e.KeyCode == Keys.Enter)
+            {
+                button1_Click(sender, e);
+            }
+        }
+        #endregion
+
+
     }
 }

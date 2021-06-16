@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,28 +10,37 @@ namespace Snake_Wars
 {
     class Circle
     {
-        private int xRows;//行
-        private int yCols;//列
-        private Color color;//颜色
+        #region 字段
+        private int xRows;          //横向列
+        private int yRows;          //纵向行
+        private Color color;         //颜色
+        private Label label;         //标签控件
+        private Point position;      //位置
+        #endregion
 
         #region 属性
         public int XRow { get => xRows; set => xRows = value; }
-        public int YRow { get => yCols; set => yCols = value; }
+        public int YRow { get => yRows; set => yRows = value; }
         public Color Color { get => color; set => color = value; }
+        public Label Label { get => label; set => label = value; }
+        public Point Position { get => position; set => position = value; }
         #endregion
 
+        #region 方法
         public Circle(int xRows, int yRows, Color c) //初始化
         {
             this.xRows = xRows;
-            this.yCols = yRows;
+            this.yRows = yRows;
             this.color = c;
-            //this.la = new Label();
+            this.label = new Label();
+            this.position = new Point(xRows, yRows);
             //this.la.BackColor = bg;
-
         }
 
         public Circle() //初始化
         {
         }
+
+        #endregion
     }
 }

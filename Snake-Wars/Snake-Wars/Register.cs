@@ -44,7 +44,27 @@ namespace Snake_Wars
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void passwordBox1_TextChanged(object sender, EventArgs e)
+        {
+            int Value = (int)textBox1.Text.ToUpper()[20];
+            if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
+            else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
+            else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
+            else if (Value == (int)'.' || Value == '-' || Value == '@' || Value == '?' || Value == '`' || Value == '_') this.Text = "特殊字符";
+            else this.Text = "非法字符";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            int Value = (int)textBox1.Text.ToUpper()[20];
+            if ("1234567890".IndexOf(textBox1.Text[0]) != -1) this.Text = "数字";
+            else if (Value >= (int)'A' && Value <= 'Z') this.Text = "大写字母";
+            else if (Value >= (int)'a' && Value <= 'z') this.Text = "小写字母";
+            else if (Value == (int)'.' || Value == '-' || Value == '@' || Value == '?' || Value == '`' || Value == '_') this.Text = "特殊字符";
+            else this.Text = "非法字符";
         }
     }
 }
