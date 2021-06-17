@@ -20,9 +20,9 @@ namespace Snake_Wars
         Food food = new Food();     //食物
         Map map = new Map();        //地图
         Snake snake = new Snake();  //蛇
-        Panel pa;                   //游戏界面
-        Timer timer;                //定时器
         Directions dir;             //移动方向
+        Panel pa;                   //游戏界面
+        Timer timer;                //定时器        
 
         bool isHaveFood;            //判断是否有食物
         public int Score = 0;       //累计分数
@@ -236,7 +236,8 @@ namespace Snake_Wars
         {
             pa.Controls.Clear();
             timer.Enabled = false;
-            MessageBox.Show("非常遗憾，闯关失败(请重新开始)！");
+            MessageBox.Show("非常遗憾，闯关失败(请重新开始)！", "提示");
+            defeated = true;
         }
         #endregion
     }

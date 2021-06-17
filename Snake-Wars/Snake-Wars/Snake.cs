@@ -51,7 +51,7 @@ namespace Snake_Wars
             Body1.Add(obj);
         }
 
-        public void RemoveTail(Circle[,] data, Color bg) //移去尾巴
+        public void RemoveTail(Circle[,] data, Color bg)//移去尾巴
         {
             //末尾的方块改为Map方块
             data[Body[0].XRow, Body[0].YRow] = new Map(data[Body[0].XRow, Body[0].YRow], bg);

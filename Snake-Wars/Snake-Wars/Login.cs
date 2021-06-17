@@ -30,6 +30,7 @@ namespace Snake_Wars
             LorR = true;
             pass = false;
             init = false;
+  
             InitializeComponent();
         }
         public Login(HomePage home)
@@ -122,10 +123,9 @@ namespace Snake_Wars
                 Login_in();
                 if (pass)
                 {
-                    Games games = new Games();
-                    games.Show();               //进入游戏界面
                     Close();
-                    home.Close();   //关闭上一窗体
+                    home.Close();
+                    FormHelper.LoginClose = true;//进入游戏界面
                 }
             }
             else        //注册

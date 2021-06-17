@@ -31,7 +31,7 @@ namespace Snake_Wars
 
         private void Ranking_Click(object sender, EventArgs e)  //排行榜
         {
-
+            MessageBox.Show("待开发......", "排行榜");
         }
 
         private void Rules_Click(object sender, EventArgs e)    //规则
@@ -54,7 +54,7 @@ namespace Snake_Wars
         {
             if (MessageBox.Show("确认退出？", "退出", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Application.Exit();
+                System.Environment.Exit(0); 
             }
         }
 

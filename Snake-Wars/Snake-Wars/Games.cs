@@ -33,7 +33,6 @@ namespace Snake_Wars
             isExsit = false;
             isFinished = false;
             Return = false;
-            pictureBox1.Visible = false;
             InitializeComponent();
             game = new Game(panel1); //panel中运行游戏
             Target(screennum);
@@ -66,31 +65,31 @@ namespace Snake_Wars
             Scores = game.Score;
             if (game.Score >= Convert.ToInt32(label4.Text))
             {
-                game.Gameover();
+                gaming.Stop();
+                //game.Gameover();
                 timer1.Enabled = false;
                 vitory.Play();
                 MessageBox.Show("恭喜！闯关成功！");
                 isFinished = true;
             }
-            if (isFinished == true && game.defeated == true)
+            if (isFinished != true && game.defeated == true)
             {
-                defeat.Play();
+                gaming.Stop();
                 pictureBox1.Visible = true;
+                defeat.Play();
+                isFinished = true;
+                
                 if (MessageBox.Show("确认退出？", "退出", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    FormHelper.GameClose2 = true;   //返回主页面
                     Close();
-                    HomePage home = new HomePage();
-                    home.Show();
                 }
                 else
                 {
+                    FormHelper.GameClose1 = true;   //重新开窗体
                     Close();
-                    Games newgame = new Games();
-                    newgame.Show();
                 }
             }
-                
-            
         }
         #endregion
 

@@ -18,7 +18,6 @@ D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-W
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake_Wars.Games.resources
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake_Wars.Login.resources
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake_Wars.Properties.Resources.resources
-D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake_Wars.Music.resources
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake-Wars.csproj.GenerateResource.cache
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake-Wars.csproj.CoreCompileInputs.cache
 D:\学习使我快乐\编程\大二下 C#\大作业[小组15]\Snake-Wars\Snake-Wars\obj\Debug\Snake-Wars.exe

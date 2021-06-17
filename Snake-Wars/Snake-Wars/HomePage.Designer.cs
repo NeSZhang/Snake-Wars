@@ -33,9 +33,9 @@ namespace Snake_Wars
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
             this.Title = new System.Windows.Forms.Label();
             this.Rules = new System.Windows.Forms.Label();
-            this.RankingList = new System.Windows.Forms.Label();
             this.Enter = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
+            this.RankingList = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Title
@@ -60,24 +60,10 @@ namespace Snake_Wars
             this.Rules.Location = new System.Drawing.Point(637, 505);
             this.Rules.Name = "Rules";
             this.Rules.Size = new System.Drawing.Size(133, 30);
-            this.Rules.TabIndex = 1;
+            this.Rules.TabIndex = 3;
             this.Rules.Text = "游戏规则";
             this.Rules.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Rules.Click += new System.EventHandler(this.Rules_Click);
-            // 
-            // RankingList
-            // 
-            this.RankingList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RankingList.AutoSize = true;
-            this.RankingList.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.RankingList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.RankingList.Location = new System.Drawing.Point(637, 461);
-            this.RankingList.Name = "RankingList";
-            this.RankingList.Size = new System.Drawing.Size(133, 30);
-            this.RankingList.TabIndex = 1;
-            this.RankingList.Text = "  排行榜";
-            this.RankingList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.RankingList.Click += new System.EventHandler(this.Ranking_Click);
             // 
             // Enter
             // 
@@ -88,7 +74,7 @@ namespace Snake_Wars
             this.Enter.Location = new System.Drawing.Point(290, 323);
             this.Enter.Name = "Enter";
             this.Enter.Size = new System.Drawing.Size(180, 50);
-            this.Enter.TabIndex = 2;
+            this.Enter.TabIndex = 1;
             this.Enter.Text = "进入游戏";
             this.Enter.UseVisualStyleBackColor = true;
             this.Enter.Click += new System.EventHandler(this.button1_Click);
@@ -106,6 +92,21 @@ namespace Snake_Wars
             this.Exit.Text = "退出游戏";
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // RankingList
+            // 
+            this.RankingList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RankingList.AutoSize = true;
+            this.RankingList.Font = new System.Drawing.Font("幼圆", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.RankingList.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RankingList.Location = new System.Drawing.Point(667, 468);
+            this.RankingList.Name = "RankingList";
+            this.RankingList.Size = new System.Drawing.Size(103, 30);
+            this.RankingList.TabIndex = 4;
+            this.RankingList.Text = "排行榜";
+            this.RankingList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RankingList.Visible = false;
+            this.RankingList.Click += new System.EventHandler(this.Ranking_Click);
             // 
             // HomePage
             // 
@@ -132,8 +133,8 @@ namespace Snake_Wars
 
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Label Rules;
-        private System.Windows.Forms.Label RankingList;
         private new System.Windows.Forms.Button Enter;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Label RankingList;
     }
 }
