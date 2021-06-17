@@ -47,14 +47,13 @@ namespace Snake_Wars
             // 
             // InputPwd
             // 
-            this.InputPwd.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.InputPwd.AutoSize = true;
             this.InputPwd.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.InputPwd.Location = new System.Drawing.Point(12, 140);
+            this.InputPwd.Location = new System.Drawing.Point(10, 140);
             this.InputPwd.Name = "InputPwd";
-            this.InputPwd.Size = new System.Drawing.Size(104, 19);
+            this.InputPwd.Size = new System.Drawing.Size(95, 19);
             this.InputPwd.TabIndex = 0;
-            this.InputPwd.Text = "输入密码：";
+            this.InputPwd.Text = "输入密码:";
             // 
             // passwordBox
             // 
@@ -82,7 +81,7 @@ namespace Snake_Wars
             // 
             this.button1.AutoSize = true;
             this.button1.Font = new System.Drawing.Font("宋体", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(44, 270);
+            this.button1.Location = new System.Drawing.Point(44, 250);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 56);
             this.button1.TabIndex = 4;
@@ -94,7 +93,7 @@ namespace Snake_Wars
             // 
             this.Account.AutoSize = true;
             this.Account.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Account.Location = new System.Drawing.Point(12, 80);
+            this.Account.Location = new System.Drawing.Point(10, 80);
             this.Account.Name = "Account";
             this.Account.Size = new System.Drawing.Size(66, 19);
             this.Account.TabIndex = 0;
@@ -104,7 +103,7 @@ namespace Snake_Wars
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox1.Location = new System.Drawing.Point(301, 139);
+            this.checkBox1.Location = new System.Drawing.Point(310, 139);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(69, 23);
             this.checkBox1.TabIndex = 0;
@@ -126,11 +125,11 @@ namespace Snake_Wars
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(12, 28);
+            this.label3.Location = new System.Drawing.Point(10, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(180, 19);
+            this.label3.Size = new System.Drawing.Size(199, 19);
             this.label3.TabIndex = 0;
-            this.label3.Text = "请输入您的账号密码";
+            this.label3.Text = "请输入您的账号密码：";
             // 
             // passwordBox2
             // 
@@ -148,18 +147,18 @@ namespace Snake_Wars
             // 
             this.ConfirmPwd.AutoSize = true;
             this.ConfirmPwd.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ConfirmPwd.Location = new System.Drawing.Point(12, 200);
+            this.ConfirmPwd.Location = new System.Drawing.Point(10, 200);
             this.ConfirmPwd.Name = "ConfirmPwd";
-            this.ConfirmPwd.Size = new System.Drawing.Size(104, 19);
+            this.ConfirmPwd.Size = new System.Drawing.Size(95, 19);
             this.ConfirmPwd.TabIndex = 0;
-            this.ConfirmPwd.Text = "确认密码：";
+            this.ConfirmPwd.Text = "确认密码:";
             this.ConfirmPwd.Visible = false;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox2.Location = new System.Drawing.Point(301, 199);
+            this.checkBox2.Location = new System.Drawing.Point(310, 199);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(69, 23);
             this.checkBox2.TabIndex = 0;
@@ -172,7 +171,7 @@ namespace Snake_Wars
             // 
             this.Exit.AutoSize = true;
             this.Exit.Font = new System.Drawing.Font("宋体", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Exit.Location = new System.Drawing.Point(220, 270);
+            this.Exit.Location = new System.Drawing.Point(220, 250);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(115, 56);
             this.Exit.TabIndex = 5;
@@ -184,7 +183,7 @@ namespace Snake_Wars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 353);
+            this.ClientSize = new System.Drawing.Size(382, 333);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.passwordBox2);
@@ -200,6 +199,7 @@ namespace Snake_Wars
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "登录";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -35,16 +35,16 @@ namespace Snake_Wars
         #endregion
 
         #region 方法
-        public void DrawSnake(Circle[,] data)
+        public void DrawSnake(Circle[,] data)//绘制蛇
         {
-            for (int i = 5; i < 9; i++)  //列
+            for (int i = 5; i < 9; i++)
             {
-                data[1, i] = new Snake(data[1, i], Color);
-                AddSnake(data[1, i] as Snake, data);
+                data[3, i] = new Snake(data[3, i], Color);
+                AddSnake(data[3, i] as Snake, data);
             }
         }
 
-        public void AddSnake(Snake obj, Circle[,] data)
+        public void AddSnake(Snake obj, Circle[,] data)//添加蛇
         {
             data[obj.XRow, obj.YRow] = obj;
             Head1 = new Point(obj.XRow, obj.YRow);

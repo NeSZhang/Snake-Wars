@@ -27,7 +27,7 @@ namespace Snake_Wars
         bool isHaveFood;            //判断是否有食物
         public int Score = 0;       //累计分数
         public bool isStoped = false;
-        public bool isFinished = false;
+        public bool defeated = false;
         #endregion
 
         #region 初始化
@@ -70,7 +70,7 @@ namespace Snake_Wars
         #endregion
 
         #region 支持函数
-        void Move()
+        void Move()//移动
         {
             switch (dir)
             {
@@ -86,7 +86,7 @@ namespace Snake_Wars
                         }
                         else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover(); isFinished = true;
+                            Gameover(); defeated = true;
                         }
                         else
                         {
@@ -96,7 +96,7 @@ namespace Snake_Wars
                     }
                     else    //撞墙死
                     {
-                        Gameover(); isFinished = true;
+                        Gameover(); defeated = true;
                     }
                     break;
                 case Directions.Down:
@@ -111,7 +111,7 @@ namespace Snake_Wars
                         }
                         else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover(); isFinished = true;
+                            Gameover(); defeated = true;
                         }
                         else
                         {
@@ -121,7 +121,7 @@ namespace Snake_Wars
                     }
                     else
                     {
-                        Gameover(); isFinished = true;
+                        Gameover(); defeated = true;
                     }
                     break;
                 case Directions.Left:
@@ -136,7 +136,7 @@ namespace Snake_Wars
                         }
                         else if (checkBody(front))     //是否撞到自己
                         {
-                            Gameover(); isFinished = true;
+                            Gameover(); defeated = true;
                         }
                         else
                         {
@@ -146,7 +146,7 @@ namespace Snake_Wars
                     }
                     else    //撞墙死
                     {
-                        Gameover(); isFinished = true;
+                        Gameover(); defeated = true;
                     }
                     break;
                 case Directions.Right:
@@ -161,7 +161,7 @@ namespace Snake_Wars
                         }
                         else if (checkBody(front))  //是否撞到自己
                         {
-                            Gameover(); isFinished = true;
+                            Gameover(); defeated = true;
                         }
                         else
                         {
@@ -171,12 +171,12 @@ namespace Snake_Wars
                     }
                     else        //撞墙死
                     {
-                        Gameover(); isFinished = true;
+                        Gameover(); defeated = true;
                     }
                     break;
             }
         }
-        public void ChangeDirections(Keys keys)//改变蛇的方向，不能向当前运动方向的反方向运动
+        public void ChangeDirections(Keys keys)//改变方向
         {
             if (keys == Keys.Up)
             {
@@ -233,9 +233,8 @@ namespace Snake_Wars
             isStoped = false;
         }
         public void Gameover()  //游戏结束
-        {     
+        {
             pa.Controls.Clear();
-            
             timer.Enabled = false;
             MessageBox.Show("非常遗憾，闯关失败(请重新开始)！");
         }

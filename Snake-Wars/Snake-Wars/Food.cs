@@ -12,7 +12,6 @@ namespace Snake_Wars
         #region 初始化
         public Food()
         {
-
         }
 
         public Food(Circle obj, Color food)
